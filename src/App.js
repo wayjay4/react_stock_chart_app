@@ -1,4 +1,5 @@
 import './App.css';
+import DataChart from "./components/DataChart";
 import {useEffect, useState} from "react";
 import axios from "axios";
 
@@ -38,19 +39,24 @@ function App() {
       <div>
         <h2 className="text-5xl">Hello World</h2>
 
+          <DataChart
+              incomes={incomes.quarterlyReports}
+              balances={balances.quarterlyReports}
+          />
+
           <ul>
-              {incomes.quarterlyReports && incomes.quarterlyReports.map((report)=> {
+              {incomes.quarterlyReports && incomes.quarterlyReports.map((report, index)=> {
                   const {netIncome, totalRevenue} = report;
-                  return <li>net income: {netIncome}, total revenue: {totalRevenue}</li>
+                  return <li key={index}>net income: {netIncome}, total revenue: {totalRevenue}</li>
               })}
           </ul>
 
           <hr />
 
           <ul>
-              {balances.quarterlyReports && balances.quarterlyReports.map((report)=> {
+              {balances.quarterlyReports && balances.quarterlyReports.map((report, index)=> {
                   const {totalShareholderEquity} = report;
-                  return <li>share holder equity: {totalShareholderEquity}</li>
+                  return <li key={index}>share holder equity: {totalShareholderEquity}</li>
               })}
           </ul>
       </div>
