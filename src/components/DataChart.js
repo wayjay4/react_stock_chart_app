@@ -5,20 +5,22 @@ import {
     LineElement,
     CategoryScale,  // x-axis
     LinearScale,    // y-axis
-    PointElement
+    PointElement,
+    Legend, Filler, SubTitle, Title
 } from "chart.js";
 
 ChartJS.register(
     LineElement,
     CategoryScale,  // x-axis
     LinearScale,    // y-axis
-    PointElement
+    PointElement,
+    Legend,
+    Filler,
+    SubTitle,
+    Title
 )
 
 function DataChart({incomes, balances}){
-    console.log('incomes: ', incomes)
-    console.log('balances: ', balances);
-
     const net_incomes = (incomes) ? incomes.map((income)=>{
         return income['netIncome'];
     }) : []
@@ -43,109 +45,76 @@ function DataChart({incomes, balances}){
         labels: dates,
         datasets: [
             {
-                labels: 'Sales of the Week',
+                label: 'Net Income',
                 data: net_incomes,
-                backgroundColor: 'red',
-                borderColor: 'blue',
-                pointBorderColor: 'red',
-                tension: 0.4
+                borderColor: 'rgba(255, 99, 132, 1)',
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                tension: 0.4,
+                hoverRadius: 15,
+                pointHitRadius: 15,
+                fill: true,
             },
             {
-                labels: 'Gross of the Week',
+                label: 'Total Revenue',
                 data: total_revenue,
-                backgroundColor: 'red',
-                borderColor: 'orange',
-                pointBorderColor: 'green',
-                tension: 0.4
+                borderColor: 'rgba(54, 162, 235, 1)',
+                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                tension: 0.4,
+                hoverRadius: 15,
+                pointHitRadius: 15,
+                fill: true,
             },
             {
-                labels: 'Gross of the Week',
+                label: 'Total Shareholder Equity',
                 data: total_shareholder_equity,
-                backgroundColor: 'orange',
-                borderColor: 'green',
-                pointBorderColor: 'green',
-                tension: 0.4
-            }
-        ]
-    }
-
-    const data1 = {
-        labels: dates,
-        datasets: [
-            {
-                labels: 'Sales of the Week',
-                data: net_incomes,
-                backgroundColor: 'red',
-                borderColor: 'blue',
-                pointBorderColor: 'red',
-                tension: 0.4
-            }
-        ]
-    }
-
-    const data2 = {
-        labels: dates,
-        datasets: [
-            {
-                labels: 'Gross of the Week',
-                data: total_revenue,
-                backgroundColor: 'red',
-                borderColor: 'orange',
-                pointBorderColor: 'green',
-                tension: 0.4
-            }
-        ]
-    }
-
-    const data3 = {
-        labels: dates2,
-        datasets: [
-            {
-                labels: 'Gross of the Week',
-                data: total_shareholder_equity,
-                backgroundColor: 'orange',
-                borderColor: 'green',
-                pointBorderColor: 'green',
-                tension: 0.4
+                borderColor: 'rgba(75, 192, 192, 1)',
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                tension: 0.4,
+                hoverRadius: 15,
+                pointHitRadius: 15,
+                fill: true,
             }
         ]
     }
 
     const options = {
+        type: 'line',
+        animation: true,
         plugins: {
-            legend: true
-        },
-        scales: {
-            y: {
-                // min: 3,
-                // max: 6
+            legend: {
+                display: true,
+                position: 'bottom',
+                labels: {
+                    font: {
+                        size: 22
+                    },
+                },
+            },
+            subtitle: {
+                display: true,
+                text: ''
+            },
+            title: {
+                fullSize: true,
+                display: true,
+                text: 'Quarterly Report',
+                font: {
+                    size: 28
+                }
+            },
+            chartAreaBorder: {
+                borderColor: 'red',
             }
-        }
+        },
+        layout: {
+            padding: 25,
+        },
+        responsive: true,
     }
 
     return (
         <div>
-            <h1>This is the chart component.</h1>
-
-            <Line
-                data={data}
-                options={options}
-            ></Line>
-
-            <Line
-                data={data1}
-                options={options}
-            ></Line>
-
-            <Line
-                data={data2}
-                options={options}
-            ></Line>
-
-            <Line
-                data={data3}
-                options={options}
-            ></Line>
+            {data ? <Line data={data} options={options} /> : <p>Loading...</p>}
         </div>
     );
 }

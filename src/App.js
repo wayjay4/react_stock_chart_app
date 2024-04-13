@@ -1,10 +1,11 @@
 import './App.css';
-import DataChart from "./components/DataChart";
+import 'bootstrap/dist/css/bootstrap.min.css';
 import {useEffect, useState} from "react";
 import axios from "axios";
+import NavHeader from "./components/NavHeader";
+import ChartCard from "./components/ChartCard";
 
 function App() {
-
     const [incomes, setIncomes] = useState([]);
     const [balances, setBalances] = useState([]);
 
@@ -37,28 +38,12 @@ function App() {
 
   return (
       <div>
-        <h2 className="text-5xl">Hello World</h2>
+          <NavHeader />
 
-          <DataChart
+          <ChartCard
               incomes={incomes.quarterlyReports}
               balances={balances.quarterlyReports}
           />
-
-          <ul>
-              {incomes.quarterlyReports && incomes.quarterlyReports.map((report, index)=> {
-                  const {netIncome, totalRevenue} = report;
-                  return <li key={index}>net income: {netIncome}, total revenue: {totalRevenue}</li>
-              })}
-          </ul>
-
-          <hr />
-
-          <ul>
-              {balances.quarterlyReports && balances.quarterlyReports.map((report, index)=> {
-                  const {totalShareholderEquity} = report;
-                  return <li key={index}>share holder equity: {totalShareholderEquity}</li>
-              })}
-          </ul>
       </div>
   );
 }

@@ -68,3 +68,19 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+
+
+-installation: npx create-react-app fakestoreapp
+-install axios: npm install axios
+-installed chart.js and react-chartjs-2: https://github.com/chartjs/awesome?tab=readme-ov-file#integrations --> https://github.com/reactchartjs/react-chartjs-2
+npm install react-chartjs-2 chart.js
+
+-installed react-bootstrap: https://react-bootstrap.netlify.app/
+npm install react-bootstrap bootstrap
+-import bootstrap css into main app component:
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+-got a free api key at: https://www.alphavantage.co/support/#api-key
+
