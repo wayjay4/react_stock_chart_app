@@ -40,10 +40,7 @@ function App() {
       <div>
           <NavHeader />
 
-          <ChartCard
-              incomes={incomes.quarterlyReports}
-              balances={balances.quarterlyReports}
-          />
+          <ChartCard />
       </div>
   );
 }

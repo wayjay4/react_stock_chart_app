@@ -2,9 +2,9 @@ import Card from 'react-bootstrap/Card';
 import DataChart from "./DataChart";
 import {Chart} from "react-chartjs-2";
 
-function ChartCard({incomes, balances}) {
+function ChartCard() {
     return (
-        <div className="d-flex justify-content-center align-items-center    " style={{ minHeight: '100vh' }}>
+        <div className="d-flex justify-content-center align-items-center" style={{ minHeight: '100vh' }}>
             {['Light'].map((variant) => (
                 <Card
                     bg={variant.toLowerCase()}
@@ -20,10 +20,7 @@ function ChartCard({incomes, balances}) {
                             Displaying quarterly reports procured from Alpha Vantage API.
                         </Card.Text>
 
-                        <DataChart
-                            incomes={incomes}
-                            balances={balances}
-                        />
+                        <DataChart />
                     </Card.Body>
                 </Card>
             ))}

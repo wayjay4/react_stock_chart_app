@@ -10,7 +10,11 @@
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ChartCard.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ChartCard.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/DataChart.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/DataChart.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/NavHeader.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/NavHeader.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,7 +65,7 @@
       <option name="presentableId" value="Default" />
       <updated>1712989813757</updated>
       <workItem from="1712989815784" duration="7628000" />
-      <workItem from="1713037009246" duration="8724000" />
+      <workItem from="1713037009246" duration="39985000" />
     </task>
     <servers />
   </component>

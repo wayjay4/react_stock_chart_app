@@ -1,4 +1,5 @@
 import '../App.css';
+import {useSelector} from "react-redux";
 import { Line } from "react-chartjs-2";
 import {
     Chart as ChartJS,
@@ -20,24 +21,31 @@ ChartJS.register(
     Title
 )
 
-function DataChart({incomes, balances}){
-    const net_incomes = (incomes) ? incomes.map((income)=>{
+function DataChart(){
+    const incomeData = useSelector(state =>
+        (state.income.length > 0) ? state.income[0]['quarterlyReports'] : state.income
+    );
+    const balanceData = useSelector(state =>
+        (state.balance.length > 0) ? state.balance[0]['quarterlyReports'] : state.balance
+    );
+
+    const net_incomes = (incomeData) ? incomeData.map((income)=>{
         return income['netIncome'];
     }) : []
 
-    const total_revenue = (incomes) ? incomes.map((income)=>{
+    const total_revenue = (incomeData) ? incomeData.map((income)=>{
         return income['totalRevenue'];
     }) : []
 
-    const dates = (incomes) ? incomes.map((income)=>{
+    const dates = (incomeData) ? incomeData.map((income)=>{
         return income['fiscalDateEnding'];
     }) : []
 
-    const total_shareholder_equity = (balances) ? balances.map((balance)=>{
+    const total_shareholder_equity = (balanceData) ? balanceData.map((balance)=>{
         return balance['totalShareholderEquity'];
     }) : []
 
-    const dates2 = (balances) ? balances.map((balance)=>{
+    const dates2 = (balanceData) ? balanceData.map((balance)=>{
         return balance['fiscalDateEnding'];
     }) : []
 

@@ -2,13 +2,14 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import {Button, Col, Form, Row} from "react-bootstrap";
+import Search from "./Search";
 
 function NavHeader() {
     return (
         <>
-            <Navbar fixed="top" bg="dark" data-bs-theme="dark">
+            <Navbar fixed="top" bg="dark" data-bs-theme="dark" className="py-4">
                 <Container>
-                    <Navbar.Brand href="#home">Navbar</Navbar.Brand>
+                    <Navbar.Brand href="#home" className="text-xl">Fake Stock Tracker</Navbar.Brand>
                     <Nav className="me-auto justify-content-between" style={{width: '100vw'}}>
                         <Row>
                             <Col>
@@ -21,17 +22,10 @@ function NavHeader() {
                                 <Nav.Link href="#pricing">Pricing</Nav.Link>
                             </Col>
                         </Row>
-                        <Form inline>
+                        <Form inline="true">
                             <Row>
                                 <Col xs="auto">
-                                    <Form.Control
-                                        type="text"
-                                        placeholder="Search"
-                                        className=" mr-sm-2"
-                                    />
-                                </Col>
-                                <Col xs="auto">
-                                    <Button type="submit">Submit</Button>
+                                    <Search />
                                 </Col>
                             </Row>
                         </Form>

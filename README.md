@@ -84,3 +84,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 -got a free api key at: https://www.alphavantage.co/support/#api-key
 
+-install: npm install redux react-redux
+-install: npm install @reduxjs/toolkit
+-install: npm install react-router-dom
