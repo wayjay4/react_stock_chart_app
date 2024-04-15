@@ -3,6 +3,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import {Button, Col, Form, Row} from "react-bootstrap";
 import Search from "./Search";
+import { is_demo, base_url, api_key } from "../config";
 
 function NavHeader() {
     return (
@@ -25,7 +26,7 @@ function NavHeader() {
                         <Form inline="true">
                             <Row>
                                 <Col xs="auto">
-                                    <Search />
+                                    <Search is_demo={is_demo} base_url={base_url} api_key={api_key} />
                                 </Col>
                             </Row>
                         </Form>

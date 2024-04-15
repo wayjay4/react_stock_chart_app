@@ -1,17 +1,15 @@
-import {useEffect, useMemo, useRef, useState} from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import debounce from "lodash.debounce";
 import axios from "axios";
-import {useDispatch} from "react-redux";
+import { useDispatch } from "react-redux";
 import { setIncome, clearIncome } from '../store/incomeSlice';
 import { setBalance, clearBalance } from '../store/balanceSlice';
 import { setStock } from "../store/stockSlice";
+import { setChartLoading } from "../store/chartLoadingSlice";
 
-const is_demo = true;
-const base_url = 'https://www.alphavantage.co/query';
-const apikey = is_demo ? 'demo' : 'A5WWOS39PUQAJ1S6';
-
-function Search() {
+function Search({is_demo, base_url, api_key}) {
     const componentRef = useRef(null);
+    const filterRef = useRef(null);
 
     const dispatch = useDispatch();
 
@@ -41,22 +39,29 @@ function Search() {
     const handleFilterChange = async (event) => {
         const symbols = ['tesco', 'faker'];
         const filter = (is_demo && event.target.value !== '')
-            ? symbols[symbols.length * Math.random() | 0]
+            ? symbols[Math.floor(Math.random() * symbols.length)]
             : event.target.value;
 
         setFilter(filter);
         setIsLoading(true);
 
-        const uri = `${base_url}?function=SYMBOL_SEARCH&keywords=${filter}&apikey=${apikey}`;
+        const uri = `${base_url}?function=SYMBOL_SEARCH&keywords=${filter}&apikey=${api_key}`;
 
         const action = (response) => {
-            const data = (response.data['bestMatches'] !== undefined) ? response.data['bestMatches'] : [];
+            const data = response.data['bestMatches'] || [];
             setTickers(data);
             setIsLoading(false);
-        }
+        };
 
-        await makeApiCall(uri, action);
+        try {
+            await makeApiCall(uri, action);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+            // Handle error: set error state, show error message, etc.
+            setIsLoading(false);
+        }
     };
+
 
     // using debounce to delay api call between user typing
     const debounceChangeHandler = useMemo(
@@ -83,25 +88,32 @@ function Search() {
     const handleSelect = async (event, selected_stock) => {
         const ticker_symbol = (is_demo) ? 'IBM' : selected_stock['1. symbol'];
 
-        let stock_data = {}
-        if(is_demo){
-            stock_data.symbol = 'IBM';
-            stock_data.name = 'IBM Common Stock';
-        }
-        else {
-            stock_data.symbol = selected_stock['1. symbol'];
-            stock_data.name = selected_stock['2. name'];
-        }
+        const stock_data = {
+            symbol: is_demo ? 'IBM' : selected_stock['1. symbol'],
+            name: is_demo ? 'IBM Common Stock' : selected_stock['2. name']
+        };
 
-        dispatch(setStock(stock_data));
-
-        const income_statement_uri = `${base_url}?function=INCOME_STATEMENT&symbol=${ticker_symbol}&apikey=${apikey}`;
-        const balance_sheet_uri = `${base_url}?function=BALANCE_SHEET&symbol=${ticker_symbol}&apikey=${apikey}`;
-
+        dispatch(setChartLoading(true));
         dispatch(clearIncome());
         dispatch(clearBalance());
-        await makeApiCall(income_statement_uri, (response)=>dispatch(setIncome(response.data)));
-        await makeApiCall(balance_sheet_uri, (response)=>dispatch(setBalance(response.data)));
+        dispatch(setStock(stock_data));
+
+        const income_statement_uri = `${base_url}?function=INCOME_STATEMENT&symbol=${ticker_symbol}&apikey=${api_key}`;
+        const balance_sheet_uri = `${base_url}?function=BALANCE_SHEET&symbol=${ticker_symbol}&apikey=${api_key}`;
+
+        try {
+            await makeApiCall(income_statement_uri, (response)=> {
+                dispatch(setIncome(response.data))
+                dispatch(setChartLoading(false));
+            });
+            await makeApiCall(balance_sheet_uri, (response)=> {
+                dispatch(setBalance(response.data))
+                dispatch(setChartLoading(false));
+            });
+        } catch (error) {
+            // Handle error appropriately (e.g., display an error message)
+            console.error('Error fetching data:', error);
+        }
 
         // setTickers([]);
         setIsVisible(false);
@@ -111,16 +123,20 @@ function Search() {
     }
 
     const makeApiCall = async (uri, action, type='GET') => {
-        axios({
-            method: type,
-            baseURL: uri,
-            responseType: 'json'
-        }).then((response)=>{
-            action(response);
-        })
-        .catch((e)=>{
-            console.log('There was an error: ', e);
-        });
+        try {
+            axios({
+                method: type,
+                baseURL: uri,
+                responseType: 'json'
+            }).then((response)=>{
+                action(response);
+            })
+            .catch((e)=>{
+                console.log('There was an error: ', e);
+            });
+        } catch (error) {
+            throw new Error('API Call Failed');
+        }
     };
 
     return (
@@ -131,6 +147,7 @@ function Search() {
                    className="bg-gray-100 text-xl text-gray-800 rounded-full focus:outline-none focus:shadow-outline w-64 pl-10 pr-3 py-1 pl-8"
                    placeholder="Search..."
                    onChange={debounceChangeHandler}
+                   ref={filterRef}
             />
             <div className="absolute top-0 flex items-center h-full ml-2">
                 <svg className="fill-current text-gray-400 w-5" xmlns="http://www.w3.org/2000/svg" fill="none"
