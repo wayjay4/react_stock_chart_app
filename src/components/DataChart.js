@@ -1,53 +1,22 @@
 import '../App.css';
-import {useSelector} from "react-redux";
+import { useSelector } from "react-redux";
 import { Line } from "react-chartjs-2";
-import {
-    Chart as ChartJS,
-    LineElement,
-    CategoryScale,  // x-axis
-    LinearScale,    // y-axis
-    PointElement,
-    Legend, Filler, SubTitle, Title
-} from "chart.js";
+import { Chart as ChartJS, LineElement, CategoryScale, LinearScale, PointElement, Legend, Filler, SubTitle, Title } from "chart.js";
 
-ChartJS.register(
-    LineElement,
-    CategoryScale,  // x-axis
-    LinearScale,    // y-axis
-    PointElement,
-    Legend,
-    Filler,
-    SubTitle,
-    Title
-)
+ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement, Legend, Filler, SubTitle, Title);
 
-function DataChart(){
-    const incomeData = useSelector(state =>
-        (state.income.length > 0) ? state.income[0]['quarterlyReports'] : state.income
-    );
-    const balanceData = useSelector(state =>
-        (state.balance.length > 0) ? state.balance[0]['quarterlyReports'] : state.balance
-    );
+function DataChart() {
+    const income = useSelector(state => state.income); // Assuming 'income' is the slice name in your Redux state
+    const balance = useSelector(state => state.balance); // Assuming 'balance' is the slice name in your Redux state
 
-    const net_incomes = (incomeData) ? incomeData.map((income)=>{
-        return income['netIncome'];
-    }) : []
+    const getData = (data, key) => {
+        return data?.['quarterlyReports']?.map(item => item[key]) ?? [];
+    };
 
-    const total_revenue = (incomeData) ? incomeData.map((income)=>{
-        return income['totalRevenue'];
-    }) : []
-
-    const dates = (incomeData) ? incomeData.map((income)=>{
-        return income['fiscalDateEnding'];
-    }) : []
-
-    const total_shareholder_equity = (balanceData) ? balanceData.map((balance)=>{
-        return balance['totalShareholderEquity'];
-    }) : []
-
-    const dates2 = (balanceData) ? balanceData.map((balance)=>{
-        return balance['fiscalDateEnding'];
-    }) : []
+    const net_incomes = getData(income, 'netIncome');
+    const total_revenue = getData(income, 'totalRevenue');
+    const dates = getData(income, 'fiscalDateEnding');
+    const total_shareholder_equity = getData(balance, 'totalShareholderEquity');
 
     const data = {
         labels: dates,
@@ -60,7 +29,7 @@ function DataChart(){
                 tension: 0.4,
                 hoverRadius: 15,
                 pointHitRadius: 15,
-                fill: true,
+                fill: true
             },
             {
                 label: 'Total Revenue',
@@ -70,7 +39,7 @@ function DataChart(){
                 tension: 0.4,
                 hoverRadius: 15,
                 pointHitRadius: 15,
-                fill: true,
+                fill: true
             },
             {
                 label: 'Total Shareholder Equity',
@@ -80,10 +49,10 @@ function DataChart(){
                 tension: 0.4,
                 hoverRadius: 15,
                 pointHitRadius: 15,
-                fill: true,
+                fill: true
             }
         ]
-    }
+    };
 
     const options = {
         type: 'line',
@@ -95,8 +64,8 @@ function DataChart(){
                 labels: {
                     font: {
                         size: 22
-                    },
-                },
+                    }
+                }
             },
             subtitle: {
                 display: true,
@@ -111,19 +80,17 @@ function DataChart(){
                 }
             },
             chartAreaBorder: {
-                borderColor: 'red',
+                borderColor: 'red'
             }
         },
         layout: {
-            padding: 25,
+            padding: 5
         },
-        responsive: true,
-    }
+        responsive: true
+    };
 
     return (
-        <div>
-            {data ? <Line data={data} options={options} /> : <p>Loading...</p>}
-        </div>
+        <Line data={data} options={options} />
     );
 }
 

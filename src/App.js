@@ -37,7 +37,7 @@ function App() {
   }, []);
 
   return (
-      <div>
+      <div className="bg-gray-600">
           <NavHeader />
 
           <ChartCard />
