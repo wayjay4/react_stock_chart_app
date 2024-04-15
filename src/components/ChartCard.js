@@ -36,13 +36,15 @@ function ChartCard() {
     }
 
     return (
-        <div className="d-flex justify-content-center align-items-center" style={{ minHeight: '100vh' }}>
+        <div className="d-flex justify-content-center align-items-center" style={{ minHeight: '100vh', paddingTop: '125px' }}>
             {stock.symbol ? (
                 <Card bg="light" text="dark" style={{ position: 'relative', width: '80vw' }} className="mb-2">
-                    <Card.Header>Income and Balance Report</Card.Header>
+                    <Card.Header className="text-xl">Income and Balance Quarterly Report</Card.Header>
                     <Card.Body className="md:min-h-[500px] lg:min-h-[700px]">
-                        <Card.Title>{`${stock.symbol} - ${stock.name}`}</Card.Title>
-                        <Card.Text>{date_range ? `${date_range.start_date} - ${date_range.end_date}` : ''}</Card.Text>
+                        <div className="flex flex-row justify-content-between">
+                            <Card.Title>{`${stock.symbol} - ${stock.name}`}</Card.Title>
+                            <Card.Text>{date_range ? `${date_range.start_date} - ${date_range.end_date}` : ''}</Card.Text>
+                        </div>
                         {isLoading ? (
                             <div role="status" className="spinner d-flex justify-content-center align-items-center pt-10 pb-20">
                                 <svg aria-hidden="true" className="w-20 h-20 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">

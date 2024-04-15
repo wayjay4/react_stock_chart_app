@@ -60,12 +60,12 @@ function DataChart() {
         plugins: {
             legend: {
                 display: true,
-                position: 'bottom',
+                position: 'top',
                 labels: {
                     font: {
                         size: 22
                     }
-                }
+                },
             },
             subtitle: {
                 display: true,
@@ -73,7 +73,7 @@ function DataChart() {
             },
             title: {
                 fullSize: true,
-                display: true,
+                display: false,
                 text: 'Quarterly Report',
                 font: {
                     size: 28
