@@ -39,9 +39,13 @@ Tailwind features:
 - Tailwind CSS Spinner - Flowbite (spinner component as a loader
   indicator): https://flowbite.com/docs/components/spinner/
 
+React Bootstrap features:
+
+-React Bootstrap components - NavBar, Cards: https://react-bootstrap.netlify.app/
+
 Note:
 
-- Using Alpha Vantage API (Twitch endpoint to get game data): https://www.alphavantage.co/documentation/
+- Using Alpha Vantage API (api endpoint to get free stock data): https://www.alphavantage.co/documentation/
 - Using Heroicons (hand-crafted icons by makers of Tailwind): https://heroicons.com/
 
 ## Local Dev Installation
@@ -133,6 +137,38 @@ REACT_APP_IS_DEMO=false
 REACT_APP_BASE_URL=https://www.alphavantage.co/query
 REACT_APP_API_KEY=your_api_key
 ````
+---
+
+## Installed NPM packages:
+### React Frontend
+````
+npx create-react-app stock_financial_data_app
+````
+### Axios
+````
+npm install axios
+````
+### Chart.js
+-installed chart.js and react-chartjs-2: https://github.com/chartjs/awesome?tab=readme-ov-file#integrations --> https://github.com/reactchartjs/react-chartjs-2
+````
+npm install react-chartjs-2 chart.js
+````
+
+### React Bootstrap
+-installed react-bootstrap: https://react-bootstrap.netlify.app/
+````
+npm install react-bootstrap bootstrap
+````
+-import bootstrap css into main app.js component:
+````
+import 'bootstrap/dist/css/bootstrap.min.css';
+````
+### React Redux
+````
+npm install redux react-redux
+npm install @reduxjs/toolkit
+npm install react-router-dom
+````
 
 ---
 
@@ -176,24 +212,3 @@ If you aren't satisfied with the build tool and configuration choices, you can `
 Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
 You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-
-
-
-````
--installation: npx create-react-app fakestoreapp
--install axios: npm install axios
--installed chart.js and react-chartjs-2: https://github.com/chartjs/awesome?tab=readme-ov-file#integrations --> https://github.com/reactchartjs/react-chartjs-2
-npm install react-chartjs-2 chart.js
-
--installed react-bootstrap: https://react-bootstrap.netlify.app/
-npm install react-bootstrap bootstrap
--import bootstrap css into main app component:
-import 'bootstrap/dist/css/bootstrap.min.css';
-
--got a free api key at: https://www.alphavantage.co/support/#api-key
-
--install: npm install redux react-redux
--install: npm install @reduxjs/toolkit
--install: npm install react-router-dom
-````
